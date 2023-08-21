@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,40 +7,44 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
 </head>
 <body>
-
-    <h1>Client Filter</h1>
-       <form method="get" id="filter-form">
-        <label for="city">Select a city:</label>
-        <select id="city" name="city">
-            <option value="">All Cities</option>
-            {% for city in cities %}
-                <option value="{{ city }}" {% if city == selected_city %}selected{% endif %}>{{ city }}</option>
-            {% endfor %}
-        </select>
-        <!--<button type="submit">Filter</button>-->
-    </form>S
-    <table id="clientes-table" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>City</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for client in clients %}
+<div class="container">
+        <h1>Filtrar Cliente</h1>
+        <form method="get" id="filter-form">
+            <label for="city">Seleccionar Ciudad:</label>
+            <select id="city" name="city">
+                <option value="">Todas</option>
+                {% for city in cities %}
+                    <option value="{{ city }}" {% if city == selected_city %}selected{% endif %}>{{ city }}</option>
+                {% endfor %}
+            </select>
+            <!--<button type="submit">Filter</button>-->
+        </form><br><br>
+        <table id="clientes-table" class="display" style="width:100%">
+            <thead>
                 <tr>
-                    <td>{{ client.name }}</td>
-                    <td>{{ client.city }}</td>
+                    <th>Name</th>
+                    <th>City</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.name }}</td>
+                        <td>{{ client.city }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            var dataTable = $('#clientes-table').DataTable();
+            var dataTable = $('#clientes-table').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json",
+            }
+        });
            
            
             $('#city').on('change', function() {
@@ -49,7 +52,5 @@
             });
         });
     </script>
-
-
 </body>
 </html>
